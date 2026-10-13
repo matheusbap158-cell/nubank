@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nubank · O cartão que vira mundo — conceito Connect Alpha</title>
+<meta name="description" content="Conceito independente: um cartão roxo que se abre em conta, Pix, caixinhas e mundo, numa jornada de rolagem. Feito pela Connect Alpha.">
+<meta name="theme-color" content="#14041f">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=6">
+</head>
+<body class="carregando">
+
+<div class="loader" id="loader" role="status" aria-live="polite">
+  <div class="loader-card" aria-hidden="true"><i></i></div>
+  <p class="loader-txt">Preparando o cartão <span id="loaderPct">0</span>%</p>
+</div>
+
+<header class="topo" id="topo">
+  <a class="marca" href="#jornada" aria-label="Início">
+    <span class="marca-ponto" aria-hidden="true"></span>
+    <span class="marca-nome">O cartão que vira mundo</span>
+  </a>
+  <nav class="nav" aria-label="Principal">
+    <a href="#jornada">Jornada</a>
+    <a href="#beneficios">Benefícios</a>
+    <a href="#perguntas">Perguntas</a>
+  </nav>
+  <a class="btn btn-claro" href="#fim">Abrir minha conta</a>
+  <div class="barra" id="barra" aria-hidden="true"></div>
+</header>
+
+<canvas id="fundo" aria-hidden="true"></canvas>
+<canvas id="gl" aria-hidden="true"></canvas>
+<div class="luz" aria-hidden="true"></div>
+
+<main>
+  <!-- palco: um cartão atravessa os 6 capítulos -->
+  <section class="palco-alto" id="jornada" style="--n:7">
+    <div class="stage" id="stage" data-c="0">
+
+      <!-- textos -->
+      <div class="paineis">
+        <article class="painel on" data-c="0" aria-label="Abertura">
+          <p class="rotulo"><span class="live" aria-hidden="true"></span>Conceito independente · Connect Alpha</p>
+          <h1 class="t-hero"><span class="ln"><span>Seu mundo</span></span><span class="ln"><span>cabe num</span></span><span class="ln acento"><span>cartão roxo.</span></span></h1>
+          <p class="sub">Uma jornada em que o cartão se abre em conta, Pix, caixinhas e muito mais. Role devagar, ou toque no cartão.</p>
+          <div class="cta-linha">
+            <a class="btn btn-claro grande" href="#fim">Abrir minha conta</a>
+            <button class="btn btn-fantasma grande" type="button" id="btnVirar">Virar o cartão</button>
+          </div>
+        </article>
+
+        <article class="painel" data-c="1" aria-label="Conta">
+          <p class="rotulo">01 · <b>Conta</b></p>
+          <h2 class="t-cap"><span class="ln"><span>Sem mensalidade.</span></span><span class="ln"><span>Sem fila.</span></span><span class="ln acento"><span>Sem papel.</span></span></h2>
+          <p class="sub">Abrir uma conta virou coisa de poucos toques. O resto, o app resolve.</p>
+        </article>
+
+        <article class="painel" data-c="2" aria-label="Cartão">
+          <p class="rotulo">02 · <b>Cartão</b></p>
+          <h2 class="t-cap"><span class="ln"><span>Limite que</span></span><span class="ln acento"><span>cresce com você.</span></span></h2>
+          <p class="sub">Veja o limite, bloqueie e desbloqueie na hora. O cartão obedece ao seu dedo.</p>
+          <div class="limite" aria-label="Exemplo de limite (ilustrativo)">
+            <div class="limite-topo"><span>Limite disponível</span><b id="limNum">R$ 0</b></div>
+            <div class="limite-barra"><i id="limBarra"></i></div>
+            <div class="limite-chave"><span>Cartão ativo</span><span class="chave" aria-hidden="true"><i></i></span></div>
+          </div>
+        </article>
+
+        <article class="painel" data-c="3" aria-label="Pix">
+          <p class="rotulo">03 · <b>Pix</b></p>
+          <h2 class="t-cap"><span class="ln"><span>Dinheiro na</span></span><span class="ln"><span>velocidade da</span></span><span class="ln acento"><span>conversa.</span></span></h2>
+          <p class="sub">Escolheu, confirmou, chegou. Em segundos, a qualquer hora do dia.</p>
+        </article>
+
+        <article class="painel" data-c="4" aria-label="Caixinhas">
+          <p class="rotulo">04 · <b>Caixinhas</b></p>
+          <h2 class="t-cap"><span class="ln"><span>Cada sonho com</span></span><span class="ln acento"><span>seu cantinho.</span></span></h2>
+          <p class="sub">Separe para a viagem, a reserva ou o carro novo, e veja crescer todo dia.</p>
+        </article>
+
+        <article class="painel" data-c="6" aria-label="Monte o seu">
+          <p class="rotulo">06 · <b>Seu</b></p>
+          <h2 class="t-cap"><span class="ln"><span>Monte o</span></span><span class="ln acento"><span>seu cartão.</span></span></h2>
+          <p class="sub">Digite um nome, escolha a cor e arraste o cartão para girar.</p>
+          <div class="monte">
+            <label class="campo"><span>Nome no cartão</span><input id="inpNome" type="text" maxlength="22" placeholder="SEU NOME AQUI" autocomplete="off" spellcheck="false"></label>
+            <div class="cores" id="cores" role="radiogroup" aria-label="Cor do cartão">
+              <button type="button" class="cor on" data-i="0" role="radio" aria-checked="true" aria-label="Roxinho" title="Roxinho" style="background:linear-gradient(135deg,#b868ff,#820ad1 55%,#3a0670)"></button>
+              <button type="button" class="cor" data-i="1" role="radio" aria-checked="false" aria-label="Ultravioleta" title="Ultravioleta" style="background:linear-gradient(135deg,#43305f,#1a0b2a 55%,#050109)"></button>
+              <button type="button" class="cor" data-i="2" role="radio" aria-checked="false" aria-label="Aurora" title="Aurora" style="background:linear-gradient(135deg,#ff86dc,#a64df5 55%,#3f1aa8)"></button>
+              <button type="button" class="cor" data-i="3" role="radio" aria-checked="false" aria-label="Menta" title="Menta" style="background:linear-gradient(135deg,#5af0cf,#12a39a 55%,#093f52)"></button>
+            </div>
+            <div class="cta-linha ligado">
+              <button class="btn btn-claro" type="button" id="btnBaixar">Salvar imagem do cartão</button>
+              <a class="btn btn-fantasma" href="#fim">Quero um assim</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="painel" data-c="5" aria-label="Mundo">
+          <p class="rotulo">05 · <b>Mundo</b></p>
+          <h2 class="t-cap"><span class="ln"><span>Aceito onde a</span></span><span class="ln acento"><span>vida acontece.</span></span></h2>
+          <p class="sub">Do café à passagem de avião, o mesmo cartão em todo lugar.</p>
+          <div class="cta-linha"><a class="btn btn-claro grande" href="#beneficios">Ver benefícios</a></div>
+        </article>
+      </div>
+
+      <!-- cena -->
+      <div class="cena">
+        <div class="aura" aria-hidden="true"></div>
+
+        <!-- chips do capítulo 01 -->
+        <div class="chips" aria-hidden="true">
+          <span class="chip c-a">R$ 0 de mensalidade</span>
+          <span class="chip c-b">100% pelo app</span>
+          <span class="chip c-c">Em poucos toques</span>
+        </div>
+
+        <!-- órbita do capítulo 05 -->
+        <div class="mundo" aria-hidden="true">
+          <div class="globo"><i></i><i></i><i></i><i></i></div>
+          <div class="orbita-ico">
+            <span style="--a:0deg"><svg viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7zM9 8a3 3 0 0 1 6 0"/></svg></span>
+            <span style="--a:45deg"><svg viewBox="0 0 24 24"><path d="M3 14l18-9-5 15-4-6z"/></svg></span>
+            <span style="--a:90deg"><svg viewBox="0 0 24 24"><path d="M4 11h16l-1.5-5h-13zM6 11v6M18 11v6M4 17h16"/></svg></span>
+            <span style="--a:135deg"><svg viewBox="0 0 24 24"><path d="M6 3v8M10 3v8M6 7h4M8 11v10M17 3c-2 2-2 6 0 8v10"/></svg></span>
+            <span style="--a:180deg"><svg viewBox="0 0 24 24"><path d="M9 18V6l10-2v12M9 18a3 3 0 1 1-3-3M19 16a3 3 0 1 1-3-3"/></svg></span>
+            <span style="--a:225deg"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 5.600-7 10-7 10z"/></svg></span>
+            <span style="--a:270deg"><svg viewBox="0 0 24 24"><path d="M4 11l8-7 8 7M6 10v10h12V10"/></svg></span>
+            <span style="--a:315deg"><svg viewBox="0 0 24 24"><path d="M4 7h16v11H4zM8 7V5h8v2"/></svg></span>
+          </div>
+        </div>
+
+        <!-- celular do capítulo 03 -->
+        <div class="fone" aria-hidden="true">
+          <div class="fone-tela">
+            <div class="fone-topo"><span>Pix</span><i></i></div>
+            <div class="fone-valor"><small>Valor</small><b>R$ <span id="pixVal">0,00</span></b></div>
+            <div class="fone-para"><span class="avatar">A</span><div><small>Para</small><b>Ana Souza</b></div></div>
+            <div class="fone-btn"><span>Enviar Pix</span></div>
+            <div class="fone-ok"><div class="ok-bola"><svg viewBox="0 0 24 24"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg></div><b>Pix enviado</b><small>em 3 segundos</small></div>
+          </div>
+        </div>
+
+        <!-- caixinhas do capítulo 04 -->
+        <div class="caixas" aria-hidden="true">
+          <div class="caixa" style="--p:.78;--h:262"><span class="caixa-ico">✈</span><b>Viagem</b><small>R$ <span data-cx="3900">0</span></small><i><u></u></i></div>
+          <div class="caixa" style="--p:.45;--h:196"><span class="caixa-ico">☂</span><b>Reserva</b><small>R$ <span data-cx="9000">0</span></small><i><u></u></i></div>
+          <div class="caixa" style="--p:.92;--h:150"><span class="caixa-ico">⚙</span><b>Carro</b><small>R$ <span data-cx="27600">0</span></small><i><u></u></i></div>
+          <p class="caixas-nota">Valores ilustrativos</p>
+        </div>
+
+        <!-- o cartão -->
+        <div class="card-wrap" id="cardWrap">
+          <div class="card-flip" id="cardFlip">
+            <div class="card3d" id="card3d" role="img" aria-label="Cartão roxo de conceito">
+              <div class="face frente">
+                <div class="relevo" aria-hidden="true"></div>
+                <span class="c-marca">nubank</span>
+                <span class="c-chip" aria-hidden="true"></span>
+                <svg class="c-nfc" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8c2 2.500 2 5.500 0 8M10 6c3.500 3.500 3.500 8.500 0 12M14 4c5 4.500 5 11.500 0 16"/></svg>
+                <span class="c-num">•••• •••• •••• 0000</span>
+                <span class="c-nome">SEU NOME AQUI</span>
+                <span class="c-conceito">conceito</span>
+                <div class="brilho" aria-hidden="true"></div>
+              </div>
+              <div class="face verso">
+                <div class="tarja"></div>
+                <div class="assina"><span>Assinatura</span><b>•••</b></div>
+                <p>Cartão de conceito. Não é um produto real.</p>
+                <div class="brilho" aria-hidden="true"></div>
+              </div>
+            </div>
+          </div>
+          <div class="card-sombra" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <!-- navegação por pontos -->
+      <nav class="pontos" id="pontos" aria-label="Capítulos">
+        <button type="button" data-i="0" aria-label="Abertura"></button>
+        <button type="button" data-i="1" aria-label="Conta"></button>
+        <button type="button" data-i="2" aria-label="Cartão"></button>
+        <button type="button" data-i="3" aria-label="Pix"></button>
+        <button type="button" data-i="4" aria-label="Caixinhas"></button>
+        <button type="button" data-i="5" aria-label="Mundo"></button>
+        <button type="button" data-i="6" aria-label="Monte o seu"></button>
+        <span class="contagem" id="contagem" aria-hidden="true">01 / 07</span>
+      </nav>
+
+      <div class="role" aria-hidden="true"><span></span></div>
+    </div>
+  </section>
+
+  <div class="claro">
+    <section class="sec" id="beneficios">
+      <div class="sec-in">
+        <p class="rotulo-c">Por que o roxinho pegou</p>
+        <h2 class="t-sec">Menos burocracia, <span class="ac">mais vida.</span></h2>
+        <p class="sec-sub">Seis ideias que o conceito mostra na jornada, escritas do jeito que as pessoas contam para os amigos.</p>
+        <div class="grade">
+          <article class="bene"><span class="bene-n">01</span><h3>Sem mensalidade</h3><p>A conta existe para trabalhar a seu favor, não para cobrar para ficar parada.</p></article>
+          <article class="bene"><span class="bene-n">02</span><h3>Tudo pelo app</h3><p>Do primeiro cadastro ao bloqueio do cartão: sem agência, sem fila, sem papelada.</p></article>
+          <article class="bene"><span class="bene-n">03</span><h3>Pix sem complicação</h3><p>Chave, valor, confirmar. Chegou antes de a conversa acabar.</p></article>
+          <article class="bene"><span class="bene-n">04</span><h3>Caixinhas</h3><p>Dinheiro separado por objetivo, para enxergar o sonho andando.</p></article>
+          <article class="bene"><span class="bene-n">05</span><h3>Controle na mão</h3><p>Aviso de compra na hora e visão clara de para onde o dinheiro foi.</p></article>
+          <article class="bene"><span class="bene-n">06</span><h3>Atendimento humano</h3><p>Quando o assunto é sério, tem gente de verdade do outro lado.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec sec-tira" aria-hidden="true">
+      <div class="marquee"><div class="marquee-in">
+        <span>conta</span><i></i><span>cartão</span><i></i><span>pix</span><i></i><span>caixinhas</span><i></i><span>mundo</span><i></i>
+        <span>conta</span><i></i><span>cartão</span><i></i><span>pix</span><i></i><span>caixinhas</span><i></i><span>mundo</span><i></i>
+      </div></div>
+    </section>
+
+    <section class="sec" id="perguntas">
+      <div class="sec-in estreito">
+        <p class="rotulo-c">Perguntas</p>
+        <h2 class="t-sec">O que <span class="ac">perguntam.</span></h2>
+        <div class="faq">
+          <details><summary>Este é o site oficial do Nubank?</summary><p>Não. É um projeto conceitual independente, criado pela Connect Alpha para mostrar direção de arte e jornada de rolagem. Não tem relação, patrocínio nem aprovação do Nubank.</p></details>
+          <details><summary>Os valores e o cartão são reais?</summary><p>Não. Limite, Pix, caixinhas e nome no cartão são ilustrações para o conceito. Nada aqui é oferta de produto financeiro.</p></details>
+          <details><summary>Dá para virar o cartão?</summary><p>Dá. Toque no cartão (ou no botão "Virar o cartão") e ele gira. Ele também acompanha o movimento do mouse.</p></details>
+          <details><summary>Dá para fazer algo assim para a minha marca?</summary><p>Dá. Uma jornada com um objeto central que se transforma pode ser criada para qualquer negócio. Chame a Connect Alpha no WhatsApp.</p></details>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="fim" id="fim">
+    <div class="fim-in">
+      <p class="rotulo">Fim da jornada</p>
+      <h2 class="t-fim">Seu mundo, <span class="acento">seu roxo.</span></h2>
+      <p class="sub">Conceito independente feito pela Connect Alpha. Quer uma jornada assim para a sua marca?</p>
+      <div class="cta-linha centro">
+        <a class="btn btn-claro grande" href="https://wa.me/5535998872633?text=Oi!%20Vi%20o%20conceito%20do%20Nubank%20e%20quero%20uma%20experi%C3%AAncia%20assim." rel="noopener">Falar com a Connect Alpha</a>
+        <a class="btn btn-fantasma grande" href="#jornada" id="btnTopo">Ver de novo</a>
+      </div>
+    </div>
+    <footer class="rodape">
+      <p>Projeto conceitual independente. Não é oficial e não tem relação com a Nu Pagamentos S.A. Nenhum dado financeiro aqui é real.</p>
+      <p>Feito por Connect Alpha · Lavras, MG</p>
+    </footer>
+  </section>
+</main>
+
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script src="vendor/three.min.js"></script>
+<script src="js/cena3d.js?v=5"></script>
+<script src="js/main.js?v=4"></script>
+</body>
+</html>

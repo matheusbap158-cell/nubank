@@ -1,0 +1,41 @@
+NUBANK · O CARTÃO QUE VIRA MUNDO · CONCEITO CONNECT ALPHA
+Projeto conceitual independente. Não é oficial e não tem relação com o Nubank / Nu Pagamentos. Só local (sem git, sem publicação).
+Feito em 13/10/2026. v2 (mesmo dia): cena 3D real em WebGL + capítulo "Monte o seu cartão".
+
+COMO VER
+  node "_ferramentas/preview-local.mjs" "4. Meus Clientes/2. Demos e propostas/nubank" 8795
+  (rodar da pasta raiz "Connect Alpha") e abrir http://localhost:8795
+
+CONCEITO
+  Um único cartão 3D roxo atravessa 7 capítulos num palco fixo (sticky). A rolagem escolhe o capítulo
+  (data-c no palco); a cena 3D e o CSS reagem. O progresso dentro do capítulo (--cp) alimenta barras e contadores.
+  00 Abertura   "Seu mundo cabe num cartão roxo": cartão com espessura, reflexos de estúdio e holografia;
+                inclina com o mouse; CLIQUE no cartão para virar
+  01 Conta      chips: R$ 0 de mensalidade, 100% pelo app...
+  02 Cartão     cartão de costas; limite sobe até R$ 8.000 (ilustrativo); chave de bloqueio
+  03 Pix        celular 3D com tela animada (valor digita, botão aperta, "Pix enviado") e fluxo de partículas
+  04 Caixinhas  três caixinhas de vidro 3D enchem com a rolagem (Viagem, Reserva, Carro; valores ilustrativos)
+  05 Mundo      globo de linhas e ícones orbitando
+  06 Seu        MONTE O SEU: digite o nome, escolha a cor (Roxinho, Ultravioleta, Aurora, Menta), arraste o cartão
+                para girar e baixe a imagem do cartão (PNG). A cor também muda o clima do fundo.
+  Depois, seções claras (benefícios, faixa, perguntas) e fim roxo com CTA para o WhatsApp da Connect Alpha.
+
+ARQUIVOS
+  index.html · css/style.css · js/cena3d.js (WebGL / Three.js r128) · js/main.js (rolagem, capítulos, UI)
+  vendor/three.min.js (local) + GSAP 3.12.5 + ScrollTrigger · assets/favicon.svg
+  Sem vídeo, sem imagem externa, sem logotipo oficial (só a palavra "nubank" em texto desenhado no cartão).
+  Se o WebGL não existir, a versão em CSS (cartão 2.5D) continua funcionando (classe html.webgl liga/desliga).
+
+COMO A CENA 3D FOI FEITA
+  - Cartão: corpo extrudado com bordas arredondadas + duas faces com textura desenhada em canvas 2D
+    (redesenhada quando muda nome/cor), material físico com verniz (clearcoat) e reflexos de um estúdio
+    sintético (PMREM de painéis de luz), mais um shader holográfico aditivo que depende do ângulo.
+  - Celular, caixinhas, globo e ícones: geometrias próprias; a tela do celular é uma textura de canvas animada.
+  - Poses por capítulo com amortecimento; a cena é alinhada à coluna da página (funciona em desktop e celular).
+  - A renderização pausa quando a jornada sai da tela.
+
+PENDÊNCIAS ANTES DE PUBLICAR
+  - Teste em celular real (WebGL + 7 capítulos).
+  - og.jpg para compartilhamento (dá para gerar da própria cena).
+  - Decidir se o texto "nubank" no cartão fica (conceito independente; aviso já no FAQ e no rodapé).
+  - Publicar só com OK do usuário e URL do repositório.
